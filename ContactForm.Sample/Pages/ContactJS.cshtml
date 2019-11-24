@@ -1,0 +1,107 @@
+﻿@page
+@model ContactForm.Sample.Pages.ContactJSModel
+@{
+    ViewData["Title"] = "Contact JS";
+}
+
+@section Header
+{
+    <script type="text/javascript">
+        const serialize_form = form => JSON.stringify(
+            Array.from(new FormData(form).entries())
+            .reduce((m, [ key, value ]) => Object.assign(m, {[key]: value }), {})
+    );
+
+    function api(f) {
+            $.ajax({
+                cache: false,
+                url: '',
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                data: serialize_form(f),
+                datatype: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                type: 'post',
+                success: function (data) {
+                    if (data.status) {
+                        document.forms[0].reset();
+                        alert(data.status == "OK" ? 'Contact form processed successfully. Thank you.' : data.status);
+                    } else {
+                        var x = data.map(function (e) { return e.errors[0].errorMessage; }).join('\n');
+                        alert('Validation errors:\n' + x);
+                    } 
+                }
+            });
+        }
+</script>
+}
+
+<h1>Contact JS Form Sample</h1>
+
+<div class="container">
+    <section class="mb-4">
+        <p class="w-responsive mx-auto mb-5">Please use the form below to contact us:</p>
+
+        <div class="row">
+            <div class="col-12">
+                <form id="contact-form" name="contact-form" method="POST">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="ContactName" class="">Name:</label>
+                            <input type="text" id="ContactName" name="ContactName" class="form-control" maxlength="50">
+                        </div>
+                        <div class="col-6">
+                            <label for="Email" class="">Email:</label>
+                            <input type="email" id="Email" name="Email" class="form-control" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="Category" class="">Category:</label>
+                            <select id="Category" name="Category" class="browser-default custom-select">
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="Inquiries">Inquiries</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Support">Support</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="Phone" class="">Phone:</label>
+                            <input type="tel" id="Phone" name="Phone" class="form-control" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="Subject" class="">Subject:</label>
+                            <input type="text" id="Subject" name="Subject" class="form-control" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="Message">Message:</label>
+                            <textarea type="text" id="Message" name="Message" rows="5" class="form-control md-textarea" maxlength="1500"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <a class="btn btn-primary" onclick="api(document.getElementById('contact-form'));">Send with AJAX (REST API)</a>
+                        </div>
+                        @if (Model.settings.RecaptchaEnabled)
+                        {
+                            <div class="col-6 text-right float-right">
+                                <div class="g-recaptcha" data-sitekey="@Model.settings.RecaptchaPublicKey"></div>
+                            </div>
+                        }
+                        </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}

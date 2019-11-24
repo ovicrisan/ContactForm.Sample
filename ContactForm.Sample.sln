@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactForm.Sample", "ContactForm.Sample\ContactForm.Sample.csproj", "{D21F8169-3694-41E0-8690-7BAC9C89827B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contactform.Sample.Postgres", "Contactform.Sample.Postgres\Contactform.Sample.Postgres.csproj", "{1638E787-4C47-4054-A497-87A3CFA3F22D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4C62765-91C3-4FB3-B76B-E0B9AC8F5FC9}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D21F8169-3694-41E0-8690-7BAC9C89827B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21F8169-3694-41E0-8690-7BAC9C89827B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21F8169-3694-41E0-8690-7BAC9C89827B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21F8169-3694-41E0-8690-7BAC9C89827B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1638E787-4C47-4054-A497-87A3CFA3F22D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1638E787-4C47-4054-A497-87A3CFA3F22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1638E787-4C47-4054-A497-87A3CFA3F22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1638E787-4C47-4054-A497-87A3CFA3F22D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED0320D4-2676-4FEC-BEF4-747FEE73A103}
+	EndGlobalSection
+EndGlobal

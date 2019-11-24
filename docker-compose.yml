@@ -1,0 +1,31 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=contactform
+    volumes:
+      - pgdataalpine
+    ports:
+      - "5433:5432"
+  
+  form:
+    image: contactformsample
+    container_name: contactformsample
+    environment:
+      - ContactFormSampleSettings__APIEndpoint=http://contactformsamplepg:8000/
+    ports:
+      - "8080:80"
+
+  api:
+    image: contactformsamplepg
+    container_name: contactformsamplepg
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__ContactFormSampleDB=Host=postgres;Database=contactform;Username=postgres;Password=postgres
+    ports:
+      - "8081:8000"

@@ -1,0 +1,90 @@
+﻿@page
+@model ContactForm.Sample.Pages.ContactCSModel
+@{
+    ViewData["Title"] = "Contact CS";
+}
+
+<h1>Contact CS Form Sample</h1>
+
+<div class="container">
+    <section class="mb-4">
+        <p class="w-responsive mx-auto mb-5">Please use the form below to contact us:</p>
+
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label asp-for="ContactModel.ContactName" class="">Name:</label>
+                            <span asp-validation-for="ContactModel.ContactName" class="text-danger"></span>
+                            <input type="text" asp-for="ContactModel.ContactName" class="form-control" maxlength="50">
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="ContactModel.Email" class="">Email:</label>
+                            <span asp-validation-for="ContactModel.Email" class="text-danger"></span>
+                            <input type="email" asp-for="ContactModel.Email" class="form-control" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label asp-for="ContactModel.Category" class="">Category:</label>
+                            <select asp-for="ContactModel.Category" class="browser-default custom-select">
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="Inquiries">Inquiries</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Support">Support</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="ContactModel.Phone" class="">Phone:</label>
+                            <input type="tel" asp-for="ContactModel.Phone" class="form-control" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label asp-for="ContactModel.Subject" class="">Subject:</label>
+                            <span asp-validation-for="ContactModel.Subject" class="text-danger"></span>
+                            <input type="text" asp-for="ContactModel.Subject" class="form-control" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label asp-for="ContactModel.Message">Message:</label>
+                            <span asp-validation-for="ContactModel.Message" class="text-danger"></span>
+                            <textarea asp-for="ContactModel.Message" rows="5" class="form-control md-textarea" maxlength="1500"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <a class="btn btn-primary" onclick="document.forms[0].submit();">Send with Form POST</a>
+                        </div>
+                        @if (Model.settings.RecaptchaEnabled)
+                        {
+                            <div class="col-6 text-right">
+                                <div class="g-recaptcha" data-sitekey="@Model.settings.RecaptchaPublicKey"></div>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        if (Model.settings.RecaptchaEnabled)
+        {
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        }
+        if(!string.IsNullOrEmpty(Model.Message)) {
+<script type="text/javascript">setTimeout(function () { alert('@Model.Message'); }, 500)</script>
+        }
+    }
+}

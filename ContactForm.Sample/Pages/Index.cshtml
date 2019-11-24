@@ -1,0 +1,16 @@
+﻿@page
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4">Welcome</h1>
+    <p>This is a sample <a asp-page="Contact">contact form</a> project using <a href="https://github.com/ovicrisan/ContactForm" target="_blank">github.com/OviCrisan/ContactForm</a>
+    called in 2 different ways:</p>
+    <ul>
+        <li><a asp-page="ContactJS">Using JS (AJAX)</a></li>
+        <li><a asp-page="ContactCS">Using C#</a></li>
+    </ul>
+    <p>The project has an extra step: persists all contact inquires in a Postgres database, using REST API.</p>
+    <p>Read more at <a href="https://github.com/ovicrisan/ContactForm.Sample" target="_blank">github.com/OviCrisan/ContactForm</a>.</p>
+</div>
